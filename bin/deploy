@@ -1,0 +1,4 @@
+#! /bin/bash
+set -e
+
+ansible-playbook -i inventory.ini --ask-become-pass deploy.yml 
