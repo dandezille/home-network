@@ -8,6 +8,7 @@
       - curl
       - gnupg-agent
       - software-properties-common
+      - python3-pip
 
 - name: Add docker repo key
   become: yes
@@ -45,3 +46,7 @@
     name: "{{ansible_user_id}}"
     groups: docker
     append: yes
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
