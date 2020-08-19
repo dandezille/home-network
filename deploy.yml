@@ -4,15 +4,4 @@
     - include: tasks/apt-upgrade.yml
     - include: tasks/docker.yml
     - include: tasks/apt-clean.yml
-
-    - name: Copy compose file
-      copy:
-        src: ./docker-compose.yml
-        dest: ~/docker/
-
-    - name: Setup containers
-      docker_compose:
-        project_src: ~/docker
-        remove_orphans: yes
-        pull: yes
-
+    - include: tasks/containers.yml
