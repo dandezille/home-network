@@ -2,6 +2,7 @@ version: '2'
 
 services:
   portainer:
+    container_name: portainer
     image: portainer/portainer
     command: -H unix:///var/run/docker.sock
     restart: always
@@ -11,4 +12,14 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/portainer:/data
+
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable 
+    restart: always
+    network_mode: host
+    volumes:
+      - ./data/home-assistant:/config
+    environment:
+      - TZ=Europe/Dublin
 
