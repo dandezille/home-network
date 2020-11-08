@@ -23,3 +23,17 @@ services:
     environment:
       - TZ=Europe/Dublin
 
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    restart: always
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - UMASK_SET=022 #optional
+      - PLEX_CLAIM= #optional
+    volumes:
+      - ./data/plex/library:/config
+      - ./data/plex/music:/music
