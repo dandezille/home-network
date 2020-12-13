@@ -37,3 +37,14 @@ services:
     volumes:
       - ./data/plex/library:/config
       - ./data/plex/music:/music
+
+  feedbin-to-todoist:
+    container_name: feedbin-to-todoist
+    image: dandezille/feedbin-to-todoist
+    restart: always
+    environment:
+      - TICKER_INTERVAL
+      - FEEDBIN_USER
+      - FEEDBIN_PASSWORD
+      - TODOIST_API_KEY
+
