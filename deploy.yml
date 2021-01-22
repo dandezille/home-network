@@ -3,5 +3,6 @@
   tasks:
     - include: tasks/apt-upgrade.yml
     - include: tasks/docker.yml
+    - include: tasks/tailscale.yml
     - include: tasks/apt-clean.yml
     - include: tasks/containers.yml
