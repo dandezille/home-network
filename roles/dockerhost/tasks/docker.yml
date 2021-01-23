@@ -9,6 +9,8 @@
       - gnupg-agent
       - software-properties-common
       - python3-pip
+  notify:
+    - apt clean
 
 - name: Add docker repo key
   become: yes
@@ -16,14 +18,12 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Get lsb_release
-  shell: lsb_release -cs
-  register: lsb_release
-
 - name: Add docker repo
   become: yes
+  vars:
+    - repo_url: https://download.docker.com/linux/ubuntu
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{lsb_release.stdout}} stable"
+    repo: 'deb [arch=amd64] {{ repo_url }} {{ ansible_facts.distribution_release }} stable'
     state: present
 
 - name: Install docker
@@ -34,6 +34,8 @@
       - docker-ce-cli
       - containerd.io
     update_cache: yes
+  notify:
+    - apt clean
 
 - name: Add docker group
   group:

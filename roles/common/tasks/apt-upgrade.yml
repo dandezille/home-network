@@ -5,6 +5,8 @@
     update_cache: yes
     upgrade: "yes"
   register: apt_upgrade_output
+  notify:
+    - apt clean
 
 - name: apt upgrade output
   debug:

@@ -1,5 +1,5 @@
 ---
-- name: Clean up apt packages
+- name: apt clean
   become: yes
   apt:
     autoclean: yes

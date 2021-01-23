@@ -1,0 +1,36 @@
+---
+- name: Install tailscale requirements
+  become: yes
+  apt:
+    pkg:
+      - apt-transport-https
+
+- name: Add tailscale repo key
+  become: yes
+  vars:
+    - url_base: https://pkgs.tailscale.com/stable
+    - distro: "{{ ansible_facts.distribution | lower }}"
+    - release: "{{ ansible_facts.distribution_release | lower }}"
+  apt_key:
+    url: "{{url_base}}/{{distro}}/{{release}}.gpg"
+    state: present
+
+- name: Add tailscale repo
+  become: yes
+  vars:
+    - url_base: https://pkgs.tailscale.com/stable
+    - distro: "{{ ansible_facts.distribution | lower }}"
+    - release: "{{ ansible_facts.distribution_release | lower }}"
+  apt_repository:
+    repo: "deb {{url_base}}/{{distro}} {{release}} main"
+    state: present
+
+- name: Install tailscale
+  become: yes
+  apt:
+    pkg:
+      - tailscale
+    update_cache: yes
+  notify:
+    - apt clean
+
