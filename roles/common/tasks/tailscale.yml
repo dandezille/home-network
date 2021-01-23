@@ -5,26 +5,24 @@
     pkg:
       - apt-transport-https
 
-- name: Get os
-  shell: lsb_release -si
-  register: os_distro
-
-- name: Get release
-  shell: lsb_release -cs
-  register: os_release
-
 - name: Add tailscale repo key
   become: yes
+  vars:
+    - url_base: https://pkgs.tailscale.com/stable
+    - distro: "{{ ansible_facts.distribution | lower }}"
+    - release: "{{ ansible_facts.distribution_release | lower }}"
   apt_key:
-    url: "https://pkgs.tailscale.com/stable/{{os_distro.stdout | lower}}/{{os_release.stdout}}.gpg"
+    url: "{{url_base}}/{{distro}}/{{release}}.gpg"
     state: present
 
 - name: Add tailscale repo
   become: yes
   vars:
-    tailscale_repo_root: 
+    - url_base: https://pkgs.tailscale.com/stable
+    - distro: "{{ ansible_facts.distribution | lower }}"
+    - release: "{{ ansible_facts.distribution_release | lower }}"
   apt_repository:
-    repo: "deb https://pkgs.tailscale.com/stable/{{os_distro.stdout | lower}} {{os_release.stdout}} main"
+    repo: "deb {{url_base}}/{{distro}} {{release}} main"
     state: present
 
 - name: Install tailscale
