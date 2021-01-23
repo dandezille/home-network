@@ -3,7 +3,7 @@
   tasks:
     - include: tasks/apt-upgrade.yml
 
-- hosts: nuc
+- hosts: dockerhost
   tasks:
     - include: tasks/docker.yml
 
@@ -15,7 +15,7 @@
   tasks:
     - include: tasks/apt-clean.yml
 
-- hosts: nuc
+- hosts: dockerhost
   tasks:
     - include: tasks/containers.yml
 
