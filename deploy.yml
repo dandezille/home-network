@@ -2,7 +2,20 @@
 - hosts: all
   tasks:
     - include: tasks/apt-upgrade.yml
+
+- hosts: nuc
+  tasks:
     - include: tasks/docker.yml
+
+- hosts: all
+  tasks:
     - include: tasks/tailscale.yml
+
+- hosts: all
+  tasks:
     - include: tasks/apt-clean.yml
+
+- hosts: nuc
+  tasks:
     - include: tasks/containers.yml
+
