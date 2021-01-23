@@ -9,6 +9,8 @@
       - gnupg-agent
       - software-properties-common
       - python3-pip
+  notify:
+    - apt clean
 
 - name: Add docker repo key
   become: yes
@@ -34,6 +36,8 @@
       - docker-ce-cli
       - containerd.io
     update_cache: yes
+  notify:
+    - apt clean
 
 - name: Add docker group
   group:

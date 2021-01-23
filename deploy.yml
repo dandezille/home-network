@@ -1,21 +1,11 @@
 ---
-- hosts: all
-  tasks:
-    - include: tasks/apt-upgrade.yml
-
 - hosts: dockerhost
-  tasks:
-    - include: tasks/docker.yml
+  roles:
+    - common
+    - dockerhost
 
-- hosts: all
-  tasks:
-    - include: tasks/tailscale.yml
-
-- hosts: all
-  tasks:
-    - include: tasks/apt-clean.yml
-
-- hosts: dockerhost
-  tasks:
-    - include: tasks/containers.yml
+- hosts: accesspoint
+  roles:
+    - common
+    - accesspoint
 

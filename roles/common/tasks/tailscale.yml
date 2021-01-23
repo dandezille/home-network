@@ -5,20 +5,26 @@
     pkg:
       - apt-transport-https
 
-- name: Get lsb_release
+- name: Get os
+  shell: lsb_release -si
+  register: os_distro
+
+- name: Get release
   shell: lsb_release -cs
-  register: lsb_release
+  register: os_release
 
 - name: Add tailscale repo key
   become: yes
   apt_key:
-    url: https://pkgs.tailscale.com/stable/ubuntu/{{lsb_release.stdout}}.gpg
+    url: "https://pkgs.tailscale.com/stable/{{os_distro.stdout | lower}}/{{os_release.stdout}}.gpg"
     state: present
 
 - name: Add tailscale repo
   become: yes
+  vars:
+    tailscale_repo_root: 
   apt_repository:
-    repo: "deb https://pkgs.tailscale.com/stable/ubuntu {{lsb_release.stdout}} main"
+    repo: "deb https://pkgs.tailscale.com/stable/{{os_distro.stdout | lower}} {{os_release.stdout}} main"
     state: present
 
 - name: Install tailscale
@@ -27,4 +33,6 @@
     pkg:
       - tailscale
     update_cache: yes
+  notify:
+    - apt clean
 
