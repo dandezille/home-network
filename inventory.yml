@@ -12,4 +12,4 @@ all:
       hosts:
         pi-leo:
           ansible_user: pi
-          deploy_directory: /usr/local/src
+          kiosk_url: http://google.com 

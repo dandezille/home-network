@@ -1,0 +1,18 @@
+---
+- name: Openbox Configuration
+  become: yes
+  blockinfile:
+    path: /etc/xdg/openbox/autostart
+    block: |
+      # Disable any form of screen saver / screen blanking / power management
+      xset s off
+      xset s noblank
+      xset -dpms
+
+      # Hide cursor after 0.5s
+      unclutter -idle 0.5 -root &
+
+      # Start electron app
+      KIOSK_URL={{kiosk_url}} npm run --prefix ~/kiosk start
+  notify: reboot
+

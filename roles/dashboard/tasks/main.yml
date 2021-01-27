@@ -13,3 +13,6 @@
 
 - name: Install kiosk
   import_tasks: kiosk.yml
+
+- name: Configure openbox
+  import_tasks: openbox.yml
