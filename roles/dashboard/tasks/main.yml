@@ -1,3 +1,6 @@
 ---
+- name: Correctly orientate screen
+  import_tasks: screen-rotation.yml
+
 - name: Install dependencies
   import_tasks: apt.yml
