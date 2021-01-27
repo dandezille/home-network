@@ -6,7 +6,7 @@
 
 - name: Copy .env file
   copy:
-    src: ./.env
+    src: .env
     dest: ~/docker/
 
 - name: Setup containers
