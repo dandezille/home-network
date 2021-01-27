@@ -9,3 +9,6 @@
     - common
     - accesspoint
 
+- hosts: dashboard
+  roles:
+    - common
