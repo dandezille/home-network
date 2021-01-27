@@ -2,7 +2,9 @@
 - hosts: dockerhost
   roles:
     - common
-    - dockerhost
+    - docker
+    - docker-compose
+    - containers
 
 - hosts: accesspoint
   roles:
