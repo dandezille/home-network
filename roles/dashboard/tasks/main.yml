@@ -5,6 +5,9 @@
 - name: Install dependencies
   import_tasks: apt.yml
 
+- name: Install docker
+  import_tasks: docker.yml
+
 - name: Install vnc server
   import_tasks: vnc-server.yml
 
@@ -16,3 +19,6 @@
 
 - name: Configure openbox
   import_tasks: openbox.yml
+
+- name: Configure display schedule
+  import_tasks: display-schedule.yml
