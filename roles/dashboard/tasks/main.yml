@@ -4,3 +4,6 @@
 
 - name: Install dependencies
   import_tasks: apt.yml
+
+- name: Install vnc server
+  import_tasks: vnc-server.yml
