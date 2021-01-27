@@ -7,3 +7,9 @@
 
 - name: Install vnc server
   import_tasks: vnc-server.yml
+
+- name: Install npm
+  import_tasks: npm.yml
+
+- name: Install kiosk
+  import_tasks: kiosk.yml

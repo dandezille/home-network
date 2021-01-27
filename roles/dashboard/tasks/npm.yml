@@ -1,0 +1,12 @@
+---
+- name: Install node
+  become: yes
+  apt:
+    name: npm
+  notify:
+    - apt clean
+
+- name: Update npm
+  become: yes
+  command: npm install -g npm@latest
+

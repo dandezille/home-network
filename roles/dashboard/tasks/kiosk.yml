@@ -1,0 +1,15 @@
+---
+- name: Get source
+  git:
+    repo: https://github.com/dandezille/electron-kiosk.git
+    dest: "~/kiosk"
+
+- name: npm install
+  command: npm install --no-progress
+  args:
+    chdir: "~/kiosk"
+
+- name: npm build
+  command: npm run build
+  args:
+    chdir: "~/kiosk"
