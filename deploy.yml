@@ -1,11 +1,19 @@
 ---
-- hosts: dockerhost
+- hosts: dockerhosts
   roles:
     - common
-    - dockerhost
+    - docker
+    - docker-compose
+    - containers
 
-- hosts: accesspoint
+- hosts: accesspoints
   roles:
     - common
     - accesspoint
 
+- hosts: dashboards
+  roles:
+    - common
+    - docker
+    - docker-compose
+    - dashboard

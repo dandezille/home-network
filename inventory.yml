@@ -1,0 +1,16 @@
+all:
+  children:
+    dockerhosts:
+      hosts: 
+        nuc:
+          ansible_user: dan
+    accesspoints:
+      hosts:
+        pi-router:
+          ansible_user: pi
+    dashboards:
+      hosts:
+        pi-leo:
+          ansible_user: pi
+          kiosk_url: http://google.com 
+          app_branch: dev/deploy

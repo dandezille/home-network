@@ -1,0 +1,12 @@
+---
+- name: Setup repo requirements
+  import_tasks: repo-requirements.yml
+
+- name: Setup repo
+  import_tasks: repo.yml
+
+- name: Install docker
+  import_tasks: install.yml
+
+- name: Setup permissions
+  import_tasks: permissions.yml

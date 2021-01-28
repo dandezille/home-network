@@ -1,0 +1,21 @@
+---
+- name: Correctly orientate screen
+  import_tasks: screen-rotation.yml
+
+- name: Install dependencies
+  import_tasks: apt.yml
+
+- name: Install vnc server
+  import_tasks: vnc-server.yml
+
+- name: Install npm
+  import_tasks: npm.yml
+
+- name: Install kiosk
+  import_tasks: kiosk.yml
+
+- name: Configure openbox
+  import_tasks: openbox.yml
+
+- name: Configure display schedule
+  import_tasks: display-schedule.yml

@@ -1,12 +1,12 @@
 ---
 - name: Copy compose file
   copy:
-    src: ./docker-compose.yml
+    src: docker-compose.yml
     dest: ~/docker/
 
 - name: Copy .env file
   copy:
-    src: ./.env
+    src: .env
     dest: ~/docker/
 
 - name: Setup containers

@@ -4,3 +4,7 @@
   apt:
     autoclean: yes
     autoremove: yes
+
+- name: reboot
+  become: yes
+  reboot:
