@@ -5,9 +5,6 @@
 - name: Install dependencies
   import_tasks: apt.yml
 
-- name: Install docker
-  import_tasks: docker.yml
-
 - name: Install vnc server
   import_tasks: vnc-server.yml
 
