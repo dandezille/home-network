@@ -9,6 +9,7 @@
       - python-backports-shutil-get-terminal-size
 
 - name: Install docker-compose
+  become: yes
   pip:
     name: 
       - pyrsistent==0.16.0
