@@ -1,50 +1,12 @@
 ---
-- name: Install docker repo requirements
-  become: yes
-  apt:
-    pkg:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - python3-pip
-  notify:
-    - apt clean
+- name: Setup repo requirements
+  import_tasks: repo-requirements.yml
 
-- name: Add docker repo key
-  become: yes
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-
-- name: Add docker repo
-  become: yes
-  vars:
-    - repo_url: https://download.docker.com/linux/ubuntu
-  apt_repository:
-    repo: 'deb [arch=amd64] {{ repo_url }} {{ ansible_facts.distribution_release }} stable'
-    state: present
+- name: Setup repo
+  import_tasks: repo.yml
 
 - name: Install docker
-  become: yes
-  apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-    update_cache: yes
-  notify:
-    - apt clean
+  import_tasks: install.yml
 
-- name: Add docker group
-  group:
-    name: docker
-    state: present
-
-- name: Add user to docker group
-  become: yes
-  user:
-    name: "{{ansible_user_id}}"
-    groups: docker
-    append: yes
+- name: Setup permissions
+  import_tasks: permissions.yml
