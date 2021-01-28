@@ -1,4 +1,16 @@
 ---
+- name: Install dependencies
+  become: yes
+  apt:
+    pkg:
+      - python-pip
+      - libffi-dev
+      - python-backports.ssl-match-hostname
+      - python-backports-shutil-get-terminal-size
+
 - name: Install docker-compose
   pip:
-    name: docker-compose
+    name: 
+      - pyrsistent==0.16.0
+      - docker-compose
+      - docker
