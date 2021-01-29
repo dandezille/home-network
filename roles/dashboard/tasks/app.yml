@@ -1,0 +1,52 @@
+---
+- name: Get source
+  git:
+    repo: https://github.com/dandezille/family-dashboard.git
+    dest: ~/app
+    version: "{{app_branch}}"
+
+- name: Copy .env file
+  copy:
+    src: .env
+    dest: ~/app
+
+- name: Start with docker compose
+  docker_compose:
+    project_src: ~/app
+    build: yes
+    remove_orphans: yes
+  environment:
+    RAILS_ENV: production
+
+- name: Precompile assets
+  shell:
+    cmd: docker-compose exec rails rails assets:precompile
+    chdir: ~/app
+  register: assets_out
+
+- debug: var=assets_out.stdout_lines
+
+- name: Clean assets
+  command: docker-compose exec rails rails assets:clean
+  args:
+    chdir: ~/app
+  register: assets_out
+
+- debug: var=assets_out.stdout_lines
+
+- name: Rails db:prepare
+  command: docker-compose exec rails rails db:prepare
+  args:
+    chdir: ~/app
+  register: db_prepare
+
+- debug: var=db_prepare.stdout_lines
+
+- name: Restart to pick up assets
+  docker_compose:
+    project_src: ~/app
+    build: no
+    restarted: yes
+  environment:
+    RAILS_ENV: production
+  notify: refresh browser

@@ -19,3 +19,6 @@
 
 - name: Configure display schedule
   import_tasks: display-schedule.yml
+
+- name: Install app
+  import_tasks: app.yml
