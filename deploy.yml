@@ -1,11 +1,13 @@
 ---
 - hosts: dockerhost
   roles:
-    - common
+    - apt-upgrade
+    - tailscale
     - dockerhost
 
 - hosts: accesspoint
   roles:
-    - common
+    - apt-upgrade
+    - tailscale
     - accesspoint
 

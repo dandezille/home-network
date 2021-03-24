@@ -1,6 +1,0 @@
----
-- name: Upgrade apt packages
-  import_tasks: apt-upgrade.yml
-
-- name: Install tailscale
-  import_tasks: tailscale.yml
