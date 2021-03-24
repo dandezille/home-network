@@ -1,4 +1,4 @@
 #! /bin/bash
 set -e
 
-ansible-playbook -i hosts.ini --ask-become-pass $@
+ansible-playbook -i hosts.ini $@
