@@ -1,5 +1,13 @@
 ---
 - hosts: all
-  roles:
-    - apt-upgrade
+  become: yes
+  tasks:
+  - name: apt update && apt upgrade
+    apt:
+      upgrade: 'yes'
+      update_cache: 'yes'
+  - name: apt clean
+    apt:
+      autoclean: yes
+      autoremove: yes
 
