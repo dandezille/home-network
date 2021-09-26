@@ -2,5 +2,8 @@
 - name: Install docker
   import_tasks: docker.yml
 
+- name: Copy files
+  import_tasks: files.yml
+
 - name: Start containers
   import_tasks: containers.yml

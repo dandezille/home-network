@@ -1,0 +1,11 @@
+---
+- name: Copy docker compose
+  copy:
+    src: docker-compose.yml
+    dest: ~/deploy/
+
+- name: Copy .env
+  copy:
+    src: .env
+    dest: ~/deploy/
+

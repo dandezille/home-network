@@ -1,0 +1,6 @@
+---
+- name: Copy host files
+  copy:
+    src: './{{ ansible_hostname }}'
+    dest: ~/deploy/
+
