@@ -2,7 +2,7 @@ version: "3"
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer
+    image: portainer/portainer-ce
     command: -H unix:///var/run/docker.sock
     restart: unless-stopped
     ports:
@@ -23,7 +23,7 @@ services:
 
   plex:
     container_name: plex
-    image: linuxserver/plex
+    image: ghcr.io/linuxserver/plex
     restart: unless-stopped
     network_mode: host
     environment:
@@ -31,7 +31,6 @@ services:
       - PGID=1000
       - VERSION=docker
       - UMASK_SET=022 #optional
-      - PLEX_CLAIM= #optional
     volumes:
       - ./data/plex/library:/config
       - ./data/plex/music:/music
