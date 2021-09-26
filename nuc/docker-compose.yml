@@ -13,16 +13,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/portainer:/data
 
-  homeassistant:
-    container_name: home-assistant
-    image: homeassistant/home-assistant:stable 
-    restart: always
-    network_mode: host
-    volumes:
-      - ./data/home-assistant:/config
-    environment:
-      - TZ=Europe/Dublin
-
   plex:
     image: linuxserver/plex
     container_name: plex

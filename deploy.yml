@@ -5,9 +5,3 @@
     - tailscale
     - dockerhost
 
-- hosts: accesspoint
-  roles:
-    - apt-upgrade
-    - tailscale
-    - accesspoint
-
