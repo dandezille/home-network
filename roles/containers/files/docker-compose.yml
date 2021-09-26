@@ -11,6 +11,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/portainer:/data
 
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: home-assistant
+    volumes:
+      - ./data/home-assistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
   plex:
     image: linuxserver/plex
     container_name: plex
@@ -52,14 +62,4 @@ services:
       - 22000:22000/tcp
       - 22000:22000/udp
       - 21027:21027/udp
-
-  homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
-    container_name: home-assistant
-    volumes:
-      - ./data/home-assistant/config:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
 
