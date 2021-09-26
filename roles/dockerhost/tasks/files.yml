@@ -1,11 +1,5 @@
 ---
-- name: Copy docker compose
+- name: Copy files
   copy:
-    src: docker-compose.yml
-    dest: ~/deploy/
-
-- name: Copy .env
-  copy:
-    src: .env
-    dest: ~/deploy/
-
+    src: '{{ role_path }}/files/'
+    dest: {{ deploy_dir }}

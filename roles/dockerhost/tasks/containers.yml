@@ -1,17 +1,7 @@
 ---
-- name: Copy compose file
-  copy:
-    src: ./docker-compose.yml
-    dest: ~/docker/
-
-- name: Copy .env file
-  copy:
-    src: ./.env
-    dest: ~/docker/
-
-- name: Setup containers
+- name: Start containers
   docker_compose:
-    project_src: ~/docker
+    project_src: {{ deploy_dir }}
     remove_orphans: yes
     pull: yes
 
