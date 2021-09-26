@@ -1,5 +1,0 @@
----
-- name: Copy files
-  copy:
-    src: '{{ role_path }}/files/'
-    dest: {{ deploy_dir }}

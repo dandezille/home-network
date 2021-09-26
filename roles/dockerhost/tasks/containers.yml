@@ -1,7 +1,0 @@
----
-- name: Start containers
-  docker_compose:
-    project_src: {{ deploy_dir }}
-    remove_orphans: yes
-    pull: yes
-
