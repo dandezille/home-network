@@ -1,4 +1,4 @@
 #! /bin/bash
 set -e
 
-ansible-playbook -i hosts.yml $@
+ansible-playbook -i hosts.yml -v $@
