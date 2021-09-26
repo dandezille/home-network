@@ -1,0 +1,8 @@
+---
+- hosts: nuc
+  roles:
+    - apt-upgrade
+    - tailscale
+    - docker
+    - containers
+
