@@ -34,7 +34,7 @@ services:
       - PLEX_CLAIM= #optional
     volumes:
       - ./data/plex/library:/config
-      - ./data/plex/music:/music
+      - ./data/plex/music:/music:ro
 
   feedbin-to-todoist:
     container_name: feedbin-to-todoist
@@ -62,4 +62,25 @@ services:
       - 22000:22000/tcp
       - 22000:22000/udp
       - 21027:21027/udp
+
+  samba:
+    container_name: samba
+    image: dperson/samba
+    restart: unless-stopped
+    read_only: true
+    stdin_open: true
+    tty: true
+    environment:
+      - TZ=Europe/London
+      - USER=${SAMBA_USER}
+      - SHARE=files;/mnt;yes;no;no;all
+      - USERID=1000
+      - GROUPID=1000
+    volumes:
+      - ./files:/mnt:z
+    ports:
+      - 139:139
+      - 445:445
+    tmpfs:
+      - /tmp
 
