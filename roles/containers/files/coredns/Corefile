@@ -1,0 +1,8 @@
+. {
+    forward . 1.1.1.1 192.168.1.1 {
+        policy sequential
+    }
+    errors
+    log
+    prometheus
+}

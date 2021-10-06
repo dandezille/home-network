@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   portainer:
     container_name: portainer
@@ -71,3 +72,13 @@ services:
     tmpfs:
       - /tmp
 
+  coredns:
+    container_name: coredns
+    image: coredns/coredns
+    restart: unless-stopped
+    command: --conf /etc/coredns/Corefile
+    volumes:
+      - ./coredns:/etc/coredns
+    ports:
+      - 53:53
+      - "53:53/udp"
