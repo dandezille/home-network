@@ -81,7 +81,7 @@ services:
     image: coredns/coredns
     restart: unless-stopped
     volumes:
-      - ./coredns/Corefile:/Corefile:ro
+      - ./Corefile:/Corefile:ro
     ports:
       - 53:53
       - "53:53/udp"
