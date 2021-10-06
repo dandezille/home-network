@@ -1,8 +1,14 @@
 version: "3"
 
 networks:
-  dns-int: {}
-  dns-ext: {}
+  dns-ext: 
+    ipam:
+      config:
+        - subnet: 172.28.240.0/24
+  dns-int: 
+    ipam:
+      config:
+        - subnet: 172.28.241.0/24
 
 services:
   portainer:
@@ -80,8 +86,32 @@ services:
     container_name: coredns
     image: coredns/coredns
     restart: unless-stopped
+    networks:
+      dns-int:
+        ipv4_address: 172.28.241.8
     volumes:
       - ./Corefile:/Corefile:ro
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+      - DNS1=172.28.241.8
+      - DNS2=172.28.241.8
+      - WEBPASSWORD=password
+    volumes:
+      - ./data/pihole:/etc/pihole:rw
     ports:
-      - 53:53
+      - "53:53/tcp"
       - "53:53/udp"
+      - 80:80
+    networks:
+      dns-ext:
+      dns-int:
+    dns:
+      - 172.28.241.8
+    depends_on:
+      - coredns
+
