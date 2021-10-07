@@ -1,10 +1,7 @@
-version: "3"
+version: "3.8"
 
 networks:
-  dns-ext: 
-    ipam:
-      config:
-        - subnet: 172.28.240.0/24
+  dns-ext: {}
   dns-int: 
     ipam:
       config:
