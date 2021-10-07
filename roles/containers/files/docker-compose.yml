@@ -98,6 +98,7 @@ services:
       - DNS1=172.28.241.8
       - DNS2=172.28.241.8
       - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - SERVERIP=192.168.3.2
     volumes:
       - ./data/pihole:/etc/pihole:rw
     ports:
