@@ -95,8 +95,7 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/London
-      - DNS1=172.28.241.8
-      - DNS2=172.28.241.8
+      - PIHOLE_DNS_=172.28.241.8
       - WEBPASSWORD=${PIHOLE_PASSWORD}
       - SERVERIP=192.168.3.2
     volumes:
@@ -108,8 +107,6 @@ services:
     networks:
       dns-ext:
       dns-int:
-    dns:
-      - 172.28.241.8
     depends_on:
       - coredns
 
