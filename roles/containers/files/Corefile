@@ -2,7 +2,6 @@
     forward . 127.0.0.1:5388 127.0.0.1:5389 {
         policy sequential
     }
-    prometheus
 }
 
 .:5388 {
