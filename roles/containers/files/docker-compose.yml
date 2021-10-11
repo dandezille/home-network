@@ -98,7 +98,7 @@ services:
       - TZ=Europe/London
       - PIHOLE_DNS_=172.28.241.8
       - WEBPASSWORD=${PIHOLE_PASSWORD}
-      - SERVERIP=192.168.3.2
+      - SERVERIP=192.168.88.2
     volumes:
       - ./data/pihole:/etc/pihole:rw
     ports:
