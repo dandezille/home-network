@@ -1,0 +1,20 @@
+. {
+    forward . 127.0.0.1:5388 127.0.0.1:5389 {
+        policy sequential
+    }
+}
+
+.:5388 {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername tls.cloudflare-dns.com
+        health_check 5s
+    }
+    log . "{remote}:{port} via 1.1.1.1 - {>id} \"{type} {class} {name} {proto} {size} {>do} {>bufsize}\" {rcode} {>rflags} {rsize} {duration}"
+    errors
+}
+
+.:5389 {
+    forward . 192.169.1.1
+    log . "{remote}:{port} via 192.168.1.1 - {>id} \"{type} {class} {name} {proto} {size} {>do} {>bufsize}\" {rcode} {>rflags} {rsize} {duration}"
+    errors
+}
