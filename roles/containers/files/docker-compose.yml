@@ -1,5 +1,9 @@
 version: "3"
 
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 networks:
   dns-ext: {}
   dns-int: 
@@ -109,4 +113,24 @@ services:
       dns-int:
     depends_on:
       - coredns
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - 9090:9090
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    restart: unless-stopped
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - 3000:3000
 
