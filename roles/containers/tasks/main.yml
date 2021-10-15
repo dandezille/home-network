@@ -9,3 +9,4 @@
     project_src: '{{ deploy_dir }}'
     remove_orphans: yes
     pull: yes
+    restarted: yes
