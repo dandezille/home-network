@@ -1,15 +1,6 @@
-version: "3"
-
 volumes:
   prometheus_data: {}
   grafana_data: {}
-
-networks:
-  dns-ext: {}
-  dns-int: 
-    ipam:
-      config:
-        - subnet: 172.28.241.0/24
 
 services:
   portainer:
@@ -21,38 +12,40 @@ services:
       - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/portainer:/data
+      - ./portainer:/data
 
   homeassistant:
     container_name: home-assistant
     image: ghcr.io/home-assistant/home-assistant:stable
     volumes:
-      - ./data/home-assistant:/config
+      - ./home-assistant:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
     network_mode: host
 
-  feedbin-to-todoist:
-    container_name: feedbin-to-todoist
-    image: dandezille/feedbin-to-todoist
+  feedbin-export:
+    container_name: feedbin-export
+    image: ghcr.io/dandezille/feedbin-export:latest
     restart: unless-stopped
     environment:
       - TICKER_INTERVAL
       - FEEDBIN_USER
       - FEEDBIN_PASSWORD
-      - TODOIST_API_KEY
+      - PINBOARD_API_KEY
 
   syncthing:
     container_name: syncthing
-    image: ghcr.io/linuxserver/syncthing
+    image: lscr.io/linuxserver/syncthing
     restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - ./syncthing:/config
+      - /mnt/pool/sync/config:/config
+      - /mnt/pool/sync/data:/mnt/storage
+      - ./media:/mnt/storage/media
     ports:
       - 8384:8384
       - 22000:22000/tcp
@@ -73,7 +66,6 @@ services:
       - GROUPID=1000
       - GLOBAL=client min protocol = NT1
       - GLOBAL=server min protocol = NT1
-      - GLOBAL2=ntlm auth ntlmv1-permitted
     volumes:
       - ./media:/media:ro
     ports:
@@ -82,37 +74,25 @@ services:
     tmpfs:
       - /tmp
 
-  coredns:
-    container_name: coredns
-    image: coredns/coredns
+  unifi:
+    container_name: unifi-controller
+    image: lscr.io/linuxserver/unifi-controller
     restart: unless-stopped
-    networks:
-      dns-int:
-        ipv4_address: 172.28.241.8
-    volumes:
-      - ./Corefile:/Corefile:ro
-
-  pihole:
-    container_name: pihole
-    image: pihole/pihole
-    restart: unless-stopped
-    hostname: pihole
     environment:
-      - TZ=Europe/London
-      - PIHOLE_DNS_=172.28.241.8
-      - WEBPASSWORD=${PIHOLE_PASSWORD}
-      - SERVERIP=192.168.88.2
+      - PUID=1000
+      - PGID=1000
     volumes:
-      - ./data/pihole:/etc/pihole:rw
+      - ./unifi:/config
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - 80:80
-    networks:
-      dns-ext:
-      dns-int:
-    depends_on:
-      - coredns
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 8443:8443
+    # - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optionalu
 
   prometheus:
     container_name: prometheus
