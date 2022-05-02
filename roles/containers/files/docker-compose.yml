@@ -60,11 +60,11 @@ services:
     tty: true
     environment:
       - TZ=Europe/London
-      - SHARE=media;/media
+      - SHARE=sync;/mnt/sync
       - USERID=1000
       - GROUPID=1000
     volumes:
-      - ./media:/media:ro
+      - /mnt/pool/sync/data:/mnt/sync:ro
     ports:
       - 139:139
       - 445:445
