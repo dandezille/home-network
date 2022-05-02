@@ -1,0 +1,18 @@
+---
+- name: "Pull containers"
+  when: container_host is true
+  command: docker compose pull
+  args:
+    chdir: '{{ deploy_dir }}'
+
+- name: "Restart containers"
+  when: container_host is true
+  command: docker compose up -d --remove-orphans
+  args:
+    chdir: '{{ deploy_dir }}'
+
+- name: "Prune resources" 
+  when: container_host is true
+  command: docker system prune -f
+  args:
+    chdir: '{{ deploy_dir }}'
