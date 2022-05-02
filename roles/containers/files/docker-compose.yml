@@ -45,7 +45,6 @@ services:
     volumes:
       - /mnt/pool/sync/config:/config
       - /mnt/pool/sync/data:/mnt/storage
-      - ./media:/mnt/storage/media
     ports:
       - 8384:8384
       - 22000:22000/tcp
