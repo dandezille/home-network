@@ -63,8 +63,6 @@ services:
       - SHARE=media;/media
       - USERID=1000
       - GROUPID=1000
-      - GLOBAL=client min protocol = NT1
-      - GLOBAL=server min protocol = NT1
     volumes:
       - ./media:/media:ro
     ports:
@@ -112,4 +110,3 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning
     ports:
       - 3000:3000
-
